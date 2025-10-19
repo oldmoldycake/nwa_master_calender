@@ -1,6 +1,6 @@
 # --- STAGE 1: Build the React Frontend (Node/TypeScript) ---
 FROM node:20-alpine AS frontend-builder
-WORKDIR /app/frontend
+WORKDIR /nwa_calender/frontend
 
 # Copy and install dependencies first for faster caching
 COPY frontend/package.json frontend/package-lock.json ./
@@ -15,7 +15,7 @@ RUN npm run build
 FROM python:3.11-slim
 
 # Set the Flask application working directory
-WORKDIR /app
+WORKDIR /nwa_calender
 
 # Install Python dependencies (Flask, Gunicorn)
 COPY backend/requirements.txt /app/
@@ -27,7 +27,7 @@ COPY backend/ /app/
 # Copy the built React static files into Flask's designated static folder
 # Flask typically serves static files from a 'static' folder.
 # The 'build' folder created by React is copied inside of Flask's static path.
-COPY --from=frontend-builder /app/frontend/build /app/static/
+COPY --from=frontend-builder /nwa_calender/frontend/build /app/static/
 
 # Cloud Run requires the container to listen on the port specified by the PORT environment variable.
 ENV PORT 8080
