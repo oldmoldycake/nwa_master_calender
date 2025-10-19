@@ -35,4 +35,4 @@ EXPOSE 8080
 
 # Command to start your Flask application with Gunicorn
 # 'app' is the module (app.py) and 'app' is the Flask application instance inside the module
-CMD ["gunicorn", "--bind", "0.0.0.0:8080", "app:app"]
+#CMD ["gunicorn", "--bind", "0.0.0.0:8080", "app:app"]4
